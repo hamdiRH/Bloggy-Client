@@ -1,0 +1,30 @@
+import request from "./api";
+
+export async function login(email: string, password: string) {
+  const response = await request.post("/auth/login", { email, password });
+
+  return response;
+}
+
+export async function register(payload: any) {
+  const response = await request.post("/auth/register", {
+    displayName: payload.displayName,
+    username: payload.username,
+    email: payload.email,
+    password: payload.password,
+  });
+
+  return response;
+}
+
+export function logout() {
+  if (localStorage.getItem("token")) {
+    localStorage.removeItem("token");
+  }
+}
+
+export async function user() {
+  const response = await request.get("/auth/me");
+
+  return response;
+}
